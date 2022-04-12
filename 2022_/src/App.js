@@ -35,18 +35,18 @@ function Nav(props) {
     </ol>
   </nav>
 }
-function Create(props){
+function Create(props) {
   return <article>
     <h2>Create</h2>
-    <form onSubmit={event=>{
+    <form onSubmit={event => {
       event.preventDefault();
       const title = event.target.title.value;
       const body = event.target.body.value;
       props.onCreate(title, body);
     }}>
-      <p><input type="text" name="title" placeholder="title"/></p>
+      <p><input type="text" name="title" placeholder="title" /></p>
       <p><textarea name="body" placeholder="body"></textarea></p>
-      <p><input type = "submit" value = "Create"></input></p>
+      <p><input type="submit" value="Create"></input></p>
     </form>
   </article>
 }
@@ -74,15 +74,15 @@ function App() {
       }
     }
     content = <Article title={title} body={body}></Article>
-  } else if(mode === 'CREATE'){
-    content = <Create onCreate={(_title, _body)=>{
-      const newTopic ={id:nextId, title:_title, body:_body}
+  } else if (mode === 'CREATE') {
+    content = <Create onCreate={(_title, _body) => {
+      const newTopic = { id: nextId, title: _title, body: _body }
       const newTopics = [...topics];
       newTopics.push(newTopic);
       setTopics(newTopics);
       setMode('READ');
       setId(nextId);
-      setNextId(nextId+1);
+      setNextId(nextId + 1);
     }} ></Create>
   }
   return (
@@ -95,10 +95,13 @@ function App() {
         setId(_id);
       }}></Nav>
       {content}
-      <a href="/create" onClick={event => {
-        event.preventDefault();
-        setMode('CREATE');
-      }}>Creat</a>
+      <ul>
+        <li><a href="/create" onClick={event => {
+          event.preventDefault();
+          setMode('CREATE');
+        }}>Create</a></li>
+        <li><a href="/update">Update</a></li>
+      </ul>
     </div>
   );
 }
