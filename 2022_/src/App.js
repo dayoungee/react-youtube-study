@@ -150,17 +150,32 @@ function App() {
     }
     content = <Article title={title} body={body}></Article>;
     contextControl = (
-      <li>
-        <a
-          href={"/update/" + id}
-          onClick={(event) => {
-            event.preventDefault();
-            setMode("UPDATE");
-          }}
-        >
-          Update
-        </a>
-      </li>
+      <>
+        <li>
+          <a
+            href={"/update/" + id}
+            onClick={(event) => {
+              event.preventDefault();
+              setMode("UPDATE");
+            }}
+          >
+            Update
+          </a>
+        </li>
+        <li><input type="button" value="Delete" onClick={() => {
+          const anwser = window.confirm('정말 삭제하시겠습니까?');
+          if (anwser) {
+            const newTopics = [];
+            for (let i = 0; i < topics.length; i++) {
+              if (topics[i].id !== id) {
+                newTopics.push(topics[i]);
+              }
+            }
+            setTopics(newTopics);
+            setMode('WELCOME');
+          }
+        }}></input></li>
+      </>
     );
   } else if (mode === "CREATE") {
     content = (
